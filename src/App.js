@@ -19,10 +19,6 @@ const App = () => {
     handleSearch(inputValue, setLocation);
   };
 
-  if (isLoading) {
-    return <Loader />;
-  }
-
   return (
     <div className="w-full h-screen bg-gradientBg bg-no-repeat bg-cover bg-center flex flex-col items-center justify-center px-4 lg:px-0">
       <SearchForm
@@ -30,7 +26,13 @@ const App = () => {
         handleSubmit={handleSubmit}
         isError={isError}
       />
-      <WeatherCard data={data} />
+      {isLoading ? (
+        <div className="w-full max-w-[450px] bg-black/20 min-h-[584px] text-white backdrop-blur-[32px] rounded-[32px] flex items-center justify-center">
+          <Loader />
+        </div>
+      ) : (
+        <WeatherCard data={data} />
+      )}
     </div>
   );
 };
